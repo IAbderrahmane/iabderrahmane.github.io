@@ -29,3 +29,5 @@ when calling the viewer link iabderrahmane.github.io/?long=**number**&lat=**numb
 When calling changeLocation with long [45, inf[ and lat [25, inf[ you'll get image 2. <br>
 When calling changeLocation with long [35, 45[ and lat [15, 25[ you'll get image 3. <br>
 When calling changeLocation with long < 35 and lat < 15 you'll get an error response (which is the last viewed image).<br>
+
+Right now Adnroid phone can view the panorama (and maybe call changeLocation) but they cannot recieve messages. We're working on it and it should be available soon.
