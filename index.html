@@ -21,6 +21,9 @@
 
 <div id="panorama"></div>
 <script>
+
+
+document.addEventListener("DOMContentLoaded", registerTouchmoveHandler);
 var long = 45;
 var lat = 25;
 var panoramaUrl = "https://pannellum.org/images/alma.jpg"
@@ -35,11 +38,14 @@ var changePanorama = function(url) {
         "showFullscreenCtrl": false,
     });
     viewer.on("load", function(e){
-        notifyIos();
+        notifyApp();
     });
     viewer.on("animatefinished", function(e){
-        notifyIos();
+        notifyApp();
     });
+    viewer.on("touchstart", function(params) {
+        notifyApp();
+    })
 }
 changePanorama("https://pannellum.org/images/alma.jpg");
 var changeLocation = function(coords) {
@@ -67,12 +73,27 @@ var getPanoramaInfo = function() {
         heading: viewer.getYaw(),       
     };
 }
-var notifyIos = function() {
-    try {
-        webkit.messageHandlers.viewUpdated.postMessage(getPanoramaInfo());
-    } catch(err) {
-        console.log(err);
+var notifyApp = function() {
+    if (typeof webkit !== "undefined") {
+        try {
+            webkit.messageHandlers.viewUpdated.postMessage(getPanoramaInfo());
+        } catch(err) {
+            console.log(err);
+        }
     }
+    if (typeof Android !== "undefined") {
+        try {
+            Adnroid.viewUpdated(JSON.stringify(getPanoramaInfo()));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+function registerTouchmoveHandler() {
+  const el = document.getElementById("panorama");
+  el.addEventListener("touchmove", function(params) {
+    notifyApp();
+  });
 }
 </script>
 
