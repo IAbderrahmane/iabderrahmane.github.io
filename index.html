@@ -53,7 +53,7 @@ var changeLocation = function(coords) {
     if (coords.long >= 45 && coords.lat >= 25) {
         long = 45
         lat = 25
-        changePanorama("https://pannellum.org/images/tocopilla.jpg")
+        changePanorama("https://pannellum.org/images/alma.jpg")
         return;
     } if (coords.long >= 35 && coords.lat >= 15) {
         long = 35
@@ -74,6 +74,7 @@ var getPanoramaInfo = function() {
     };
 }
 var notifyApp = function() {
+    console.log("NOTIFY", getPanoramaInfo())
     if (typeof webkit !== "undefined") {
         try {
             webkit.messageHandlers.viewUpdated.postMessage(getPanoramaInfo());
