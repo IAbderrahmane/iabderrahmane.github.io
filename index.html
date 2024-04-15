@@ -74,7 +74,6 @@ var getPanoramaInfo = function() {
     };
 }
 var notifyApp = function() {
-    console.log("NOTIFY", getPanoramaInfo())
     if (typeof webkit !== "undefined") {
         try {
             webkit.messageHandlers.viewUpdated.postMessage(getPanoramaInfo());
