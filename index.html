@@ -25,6 +25,7 @@ var long = 45;
 var lat = 25;
 var panoramaUrl = "https://pannellum.org/images/alma.jpg"
 var viewer;
+var oldInfo;
 var changePanorama = function(url) {
     panoramaUrl = url
     viewer = pannellum.viewer('panorama', {
@@ -36,7 +37,10 @@ var changePanorama = function(url) {
     });
     viewer.on("load", function(e){
         setInterval(function() {
-            notifyApp();
+            if (JSON.stringify(oldInfo) !== JSON.stringify(getPanoramaInfo())) {
+                oldInfo = getPanoramaInfo();
+                notifyApp();
+            } 
         });
     });
 }
@@ -67,6 +71,7 @@ var getPanoramaInfo = function() {
     };
 }
 var notifyApp = function() {
+    console.log("Notifying app")
     if (typeof webkit !== "undefined") {
         try {
             webkit.messageHandlers.viewUpdated.postMessage(getPanoramaInfo());
