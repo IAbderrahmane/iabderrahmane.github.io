@@ -81,7 +81,7 @@ var notifyApp = function() {
     }
     if (typeof Android !== "undefined") {
         try {
-            Adnroid.viewUpdated(JSON.stringify(getPanoramaInfo()));
+            Android.viewUpdated(JSON.stringify(getPanoramaInfo()));
         } catch (err) {
             console.log(err);
         }
